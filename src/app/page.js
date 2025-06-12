@@ -1,4 +1,12 @@
-import { Header, Hero, HomeMenu } from "@/components/layout";
+import {
+  About,
+  Contact,
+  Footer,
+  Header,
+  Hero,
+  HomeMenu,
+  SectionHeader,
+} from "@/components/layout";
 
 export default function Home() {
   return (
@@ -6,6 +14,9 @@ export default function Home() {
       <Header />
       <Hero />
       <HomeMenu />
+      <About />
+      <Contact />
+      <Footer />
     </>
   );
 }

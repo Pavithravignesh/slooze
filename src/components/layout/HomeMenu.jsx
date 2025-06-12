@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import MenuItems from "./menu/MenuItems";
+import { SectionHeader } from ".";
 
 function HomeMenu() {
   return (
@@ -25,10 +26,8 @@ function HomeMenu() {
           </div>
         </div>
         <div className="text-center mb-4">
-          <h3 className="uppercase text-gray-500 font-semibold leading-4">
-            Check out
-          </h3>
-          <h2 className="text-primary font-bold text-4xl italic">Menu</h2>
+          <SectionHeader subHeader={"Check out"} />
+          <SectionHeader mainHeader={"Menu"} />
         </div>
         <div className="grid grid-cols-4 gap-4">
           <MenuItems />
