@@ -11,12 +11,10 @@ import {
 export default function Home() {
   return (
     <>
-      <Header />
       <Hero />
       <HomeMenu />
       <About />
       <Contact />
-      <Footer />
     </>
   );
 }
