@@ -19,11 +19,14 @@ function Register() {
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },
     });
-    if (response.ok) {
-      setCreatedUser(true);
-    } else {
-      setCreatedUser(false);
+    // console.log(response);
+    if (!response.ok) {
+      new Error("issue at the register");
       setError(true);
+      setCreatedUser(false);
+    } else {
+      setError(false);
+      setCreatedUser(true);
     }
     setCreatingUser(false);
   }

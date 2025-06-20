@@ -7,8 +7,6 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true, // Normalize email
-      trim: true,
     },
     password: {
       type: String,
@@ -22,15 +20,10 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-// Add a unique index explicitly to ensure it's created
-UserSchema.index({ email: 1 }, { unique: true });
-
-// Hash password before saving
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+UserSchema.post("validate", async function () {
+  const hotHashedPassword = this.password;
   const saltRounds = 10;
-  this.password = await bcrypt.hash(this.password, saltRounds);
-  next();
+  this.password = await bcrypt.hash(hotHashedPassword, saltRounds);
 });
 
 const User = models?.User || model("User", UserSchema);
