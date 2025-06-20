@@ -7,8 +7,9 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit() {
-    fetch("api/register", {
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch("/api/register", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: { "Content-Type": "application/json" },

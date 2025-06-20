@@ -6,7 +6,7 @@ import {
   Hero,
   HomeMenu,
   SectionHeader,
-} from "@/components/layout";
+} from "../components/layout/index";
 
 export default function Home() {
   return (
