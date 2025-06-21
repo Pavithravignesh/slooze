@@ -1,15 +1,77 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
+import React, { useState } from "react";
 
 function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [creatingUser, setCreatingUser] = useState(false);
+  const [userCreated, setCreatedUser] = useState(false);
+  const [error, setError] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setCreatingUser(true);
+    const response = await fetch("/api/register", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
+    });
+    // console.log(response);
+    if (!response.ok) {
+      new Error("issue at the register");
+      setError(true);
+      setCreatedUser(false);
+    } else {
+      setError(false);
+      setCreatedUser(true);
+    }
+    setCreatingUser(false);
+  }
+
   return (
     <>
       <section className="mt-8">
         <h1 className="text-center text-primary text-4xl ">Register</h1>
-        <form action="" className="block max-w-xs mx-auto">
-          <input type="email" name="" id="" placeholder="email" />
-          <input type="password" name="" id="" placeholder="password" />
-          <button type="submit">Register</button>
+        {userCreated && (
+          <div className="my-4 text-center">
+            User has been created, Now you can{" "}
+            <Link className="underline" href={"/login"}>
+              login!
+            </Link>
+          </div>
+        )}
+        {error && (
+          <div className="my-4 text-center">
+            Error occurs, kindly try again!
+          </div>
+        )}
+        <form
+          action=""
+          className="block max-w-xs mx-auto"
+          onSubmit={handleSubmit}
+        >
+          <input
+            type="email"
+            name=""
+            id=""
+            placeholder="email"
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={creatingUser}
+          />
+          <input
+            type="password"
+            name=""
+            id=""
+            placeholder="password"
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={creatingUser}
+          />
+          <button type="submit" disabled={creatingUser}>
+            Register
+          </button>
           <div className="my-4 text-center text-gray-500 mb-4">
             or Login with Provider
           </div>
